@@ -1,0 +1,46 @@
+From 5c61c842179d24d8346bf31c96216cfe2bcec594 Mon Sep 17 00:00:00 2001
+From: Steve Lhomme <robux4@ycbcr.xyz>
+Date: Tue, 20 Aug 2019 13:10:24 +0200
+Subject: [PATCH 05/10] avcodec/hevcdec: allow HEVC 444 8/10/12 bits decoding
+ with DXVA2/D3D11VA
+
+And 4:2:0 12 bits as well.
+---
+ libavcodec/hevcdec.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/libavcodec/hevcdec.c b/libavcodec/hevcdec.c
+index b267f6ebcf..04e946ee6c 100644
+--- a/libavcodec/hevcdec.c
++++ b/libavcodec/hevcdec.c
+@@ -461,6 +461,13 @@ static enum AVPixelFormat get_format(HEVCContext *s, const HEVCSPS *sps)
+ #if CONFIG_HEVC_VAAPI_HWACCEL
+         *fmt++ = AV_PIX_FMT_VAAPI;
+ #endif
++#if CONFIG_HEVC_DXVA2_HWACCEL
++        *fmt++ = AV_PIX_FMT_DXVA2_VLD;
++#endif
++#if CONFIG_HEVC_D3D11VA_HWACCEL
++        *fmt++ = AV_PIX_FMT_D3D11VA_VLD;
++        *fmt++ = AV_PIX_FMT_D3D11;
++#endif
+ #if CONFIG_HEVC_VDPAU_HWACCEL
+         *fmt++ = AV_PIX_FMT_VDPAU;
+ #endif
+@@ -496,6 +503,13 @@ static enum AVPixelFormat get_format(HEVCContext *s, const HEVCSPS *sps)
+ #if CONFIG_HEVC_VAAPI_HWACCEL
+        *fmt++ = AV_PIX_FMT_VAAPI;
+ #endif
++#if CONFIG_HEVC_DXVA2_HWACCEL
++        *fmt++ = AV_PIX_FMT_DXVA2_VLD;
++#endif
++#if CONFIG_HEVC_D3D11VA_HWACCEL
++        *fmt++ = AV_PIX_FMT_D3D11VA_VLD;
++        *fmt++ = AV_PIX_FMT_D3D11;
++#endif
+ #if CONFIG_HEVC_VDPAU_HWACCEL
+         *fmt++ = AV_PIX_FMT_VDPAU;
+ #endif
+-- 
+2.37.3.windows.1
+

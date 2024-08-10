@@ -1259,6 +1259,10 @@
        </item>
        <item row="0" column="3">
         <widget class="QToolButton" name="eraseBrowseBtn">
+         <size>
+          <width>10</width>
+          <height>3</height>
+         </size>
          <property name="text">
           <string>...</string>
          </property>
